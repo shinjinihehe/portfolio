@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shinjini Chakraborty • Portfolio</title>
+  <meta name="description" content="Portfolio of Shinjini Chakraborty">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --paper:#ffffff;
+      --ink:#232323;
+      --muted:#6b6b6b;
+      --accent:#c6a168; /* gold accent */
+      --radius:20px;
+      --max:1100px;
+      --grad:linear-gradient(90deg,#e7d8c1 0%, #b89063 50%, #e8dcc7 100%);
+    }
+    html{scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--paper); color:var(--ink);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; line-height:1.6;
+    }
+    .container{max-width:var(--max); margin:auto; padding:24px clamp(16px,4vw,32px);}
+    
+    /* Nav */
+    .nav{position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid rgba(0,0,0,.06);}
+    .nav .row{display:flex; align-items:center; justify-content:space-between; gap:16px;}
+    .brand{
+      font-family:"Playfair Display",serif; font-weight:600; letter-spacing:.4px;
+      font-size: clamp(26px, 2.8vw, 36px);
+      background:linear-gradient(90deg,#c9a773, #9d7747 60%, #d7b98b);
+      -webkit-background-clip:text; background-clip:text; color:transparent; text-decoration:none; white-space:nowrap;
+    }
+    .menu{list-style:none; margin:0; padding:0; display:flex; gap:22px;}
+    .menu a{ text-decoration:none; color:var(--ink); font-weight:600; letter-spacing:.12em; font-size:.92rem; }
+    .menu a:hover{color:var(--accent)}
+    
+    /* Sections */
+    .section-title{ font-family:"Playfair Display",serif; font-size:clamp(28px,4vw,44px); margin:32px 0 8px; }
+    .section-sub{ color:var(--muted); margin:0 0 28px }
+    
+    /* Projects (criss-cross) */
+    .projects{ margin-top:12px; }
+    .project{
+      display:flex; align-items:center; gap:clamp(20px,4vw,52px);
+      margin: clamp(28px, 6vw, 72px) 0;
+    }
+    .projects > .project:nth-child(even){flex-direction:row-reverse}
+    .media{
+      flex:1.15; background:var(--grad); border-radius:var(--radius);
+      padding: clamp(16px,2.6vw,28px); box-shadow:0 20px 40px rgba(0,0,0,.08);
+    }
+    .media img{
+      width:100%; aspect-ratio:16/10; object-fit:cover; display:block; background:#ddd; border-radius:12px;
+    }
+    .details{flex:1; min-width:260px}
+    .details h3{ font-family:"Playfair Display",serif; font-size:clamp(22px,2.6vw,30px); margin:0 0 10px; }
+    .details p{margin:0 0 10px; color:#2c2c2c}
+    .meta{margin:10px 0 14px; color:var(--muted); font-size:.95rem}
+    
+    /* Expand button */
+    .expand-btn{
+      display:inline-flex; align-items:center; gap:8px; cursor:pointer; user-select:none;
+      padding:10px 14px; border:1px solid #d1d5db; border-radius:10px; font-weight:600; font-size:0.9rem;
+      background:transparent; color:var(--ink); margin-top:14px; transition: all 0.2s ease;
+    }
+    .expand-btn:hover{ border-color: var(--accent); color: var(--accent); }
+    .expand-btn svg{ width:16px; height:16px; transition: transform .3s ease; }
+    .expand-btn[aria-expanded="true"] svg{ transform: rotate(180deg); }
+    
+    /* Expandable content */
+    .expandable{ 
+      overflow:hidden; max-height:0; transition: max-height .5s ease;
+    }
+    .expandable.open{ max-height:none; }
+    .expandable .content{ padding-top:16px; }
+    
+    /* Gallery */
+    .gallery-grid{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:16px;
+    }
+    .gallery-img{
+      width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; 
+      box-shadow:0 2px 8px rgba(0,0,0,.1); cursor:zoom-in;
+    }
+    
+    /* Bullet lists */
+    .bullet-list{ list-style: disc; padding-left:1.25rem; margin:0; }
+    .bullet-list li{ margin-bottom:4px; }
+    .bullet-list strong{ font-weight:600; }
+    
+    /* About */
+    #about .wrap{
+      display:grid; grid-template-columns: 1fr 1.2fr; gap:clamp(24px,4vw,50px); align-items:center;
+    }
+    .portrait{ background:var(--grad); border-radius:var(--radius); padding: clamp(14px,2.4vw,24px); box-shadow:0 18px 38px rgba(0,0,0,.07); }
+    .portrait img{ width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:12px; background:#ddd; }
+    .about h2{ font-family:"Playfair Display",serif; font-size:clamp(28px,4vw,48px); margin:0 0 8px; color:#b5905b; }
+    .about p{margin:0 0 10px}
+    .contact a{ display:inline-block; margin-right:14px; color:var(--ink); text-decoration:none; border-bottom:1px solid #d8d8d8; padding-bottom:2px; }
+    .contact a:hover{color:var(--accent); border-color:var(--accent)}
+    
+    /* Footer */
+    footer{color:var(--muted); font-size:.9rem; padding-bottom:40px}
+    
+    /* Mobile */
+    @media (max-width: 860px){
+      .project{flex-direction:column}
+      #about .wrap{grid-template-columns:1fr}
+      .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container row">
+      <a class="brand" href="#">Shinjini Chakraborty</a>
+      <ul class="menu" role="navigation" aria-label="Main">
+        <li><a href="#work">WORK</a></li>
+        <li><a href="#about">ABOUT ME</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="work" class="container">
+      <div class="projects">
+        <!-- 1 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Forage+Cover" alt="Forage plant-care Tamagotchi cover">
+          </div>
+          <div class="details">
+            <h3>Forage — Plant care Tamagotchi</h3>
+            <p>Tamagotchi‑style plant care with scheduling and reminders. On‑time water/fertilize grows "happiness" to unlock pots, states, and badges.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p1-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p1-more" class="expandable">
+              <div class="content">
+                <!-- Gallery -->
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="forage" src="https://placehold.co/1200x900?text=Garden+Grid" alt="Forage — Garden grid" loading="lazy">
+                  <img class="gallery-img" data-group="forage" src="https://placehold.co/1200x900?text=Plant+Detail" alt="Forage — Plant detail timeline" loading="lazy">
+                  <img class="gallery-img" data-group="forage" src="https://placehold.co/1200x900?text=Task+Queue" alt="Forage — Care task queue" loading="lazy">
+                  <img class="gallery-img" data-group="forage" src="https://placehold.co/1200x900?text=Badge+Album" alt="Forage — Badge album" loading="lazy">
+                </div>
+                <!-- Details -->
+                <ul class="bullet-list">
+                  <li><strong>Why:</strong> Scheduling + reminders + avatar lifecycle.</li>
+                  <li><strong>Core loop:</strong> Water/fertilize on time → happiness grows → evolves/unlocks pots.</li>
+                  <li><strong>Key screens:</strong> Garden grid, Plant detail (care timeline), Care task queue, AR view (opt), Badge album.</li>
+                  <li><strong>Components:</strong> Progress meters, timers, notifications, streak logic, avatar customizer.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Pixel+Pets+Cover" alt="Pixel Pets app cover">
+          </div>
+          <div class="details">
+            <h3>Pixel Pets — Collectibles + Marketplace</h3>
+            <p>Hatch, quest, and trade pixel‑art pets. Rarity tiers and gene traits drive collecting; pack‑opening confetti seals the dopamine loop.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p2-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p2-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="pixelpets" src="https://placehold.co/1200x900?text=Hatchery" alt="Pixel Pets — Hatchery" loading="lazy">
+                  <img class="gallery-img" data-group="pixelpets" src="https://placehold.co/1200x900?text=Quests" alt="Pixel Pets — Quests" loading="lazy">
+                  <img class="gallery-img" data-group="pixelpets" src="https://placehold.co/1200x900?text=Marketplace" alt="Pixel Pets — Marketplace" loading="lazy">
+                  <img class="gallery-img" data-group="pixelpets" src="https://placehold.co/1200x900?text=Pack+Opening" alt="Pixel Pets — Pack opening" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Screens:</strong> Hatchery, Pet detail, Quests, Marketplace, Inventory, Trade, Pack opening.</li>
+                  <li><strong>Components:</strong> Progress rings, timers, rarity, gene traits, badges, confetti, push reminders.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Vinyl+Vault+Cover" alt="Vinyl Vault marketplace cover">
+          </div>
+          <div class="details">
+            <h3>Vinyl Vault — Collector marketplace with sets and pack openings</h3>
+            <p>Data‑heavy marketplace for crate‑diggers: smart filters + tables, set completion, trading dupes, and gacha‑style packs.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p3-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p3-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="vinyl" src="https://placehold.co/1200x900?text=Smart+Filters" alt="Vinyl Vault — Browse with smart filters" loading="lazy">
+                  <img class="gallery-img" data-group="vinyl" src="https://placehold.co/1200x900?text=Listing+Detail" alt="Vinyl Vault — Listing detail" loading="lazy">
+                  <img class="gallery-img" data-group="vinyl" src="https://placehold.co/1200x900?text=Inventory" alt="Vinyl Vault — Inventory grid" loading="lazy">
+                  <img class="gallery-img" data-group="vinyl" src="https://placehold.co/1200x900?text=Pack+Opening" alt="Vinyl Vault — Pack opening modal" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Why:</strong> Filters/tables + inventory + trading + gacha rewards.</li>
+                  <li><strong>Core loop:</strong> Hunt records → complete themed sets → earn badges → trade dupes.</li>
+                  <li><strong>Key screens:</strong> Browse with smart filters, Listing detail, Sell flow, Inventory grid, Trade hallway, Pack opening modal.</li>
+                  <li><strong>Edge cases:</strong> Escrow, dispute flow, authenticity badges.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Coffee+Landing+Cover" alt="Cutesy coffee shop landing cover">
+          </div>
+          <div class="details">
+            <h3>Coffee Shop Landing — Cutesy Design</h3>
+            <p>Soft pastels, kawaii cups, and pill buttons. Mobile‑first hero + cozy story blocks to drive visits and orders.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p4-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p4-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="coffee" src="https://placehold.co/1200x900?text=Hero" alt="Coffee — Hero section" loading="lazy">
+                  <img class="gallery-img" data-group="coffee" src="https://placehold.co/1200x900?text=Menu+Highlight" alt="Coffee — Menu highlight" loading="lazy">
+                  <img class="gallery-img" data-group="coffee" src="https://placehold.co/1200x900?text=Story+Block" alt="Coffee — Cozy story block" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li>Hero with primary CTA, menu highlight, and "our vibe" section.</li>
+                  <li>Icon cards, wavy separators, and illustration system for a friendly brand.</li>
+                  <li>Responsive layout built for quick skim and conversion.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Skill+Arcade+Cover" alt="Skill Arcade neon micro-learning cover">
+          </div>
+          <div class="details">
+            <h3>Skill Arcade — micro‑learning</h3>
+            <p>Neon micro‑learning arcade: 3‑min runs with difficulty chips, timers, progress bars, and streaks.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p5-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p5-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="skill" src="https://placehold.co/1200x900?text=Catalog" alt="Skill Arcade — Topic catalog" loading="lazy">
+                  <img class="gallery-img" data-group="skill" src="https://placehold.co/1200x900?text=3-min+Run" alt="Skill Arcade — 3‑minute run" loading="lazy">
+                  <img class="gallery-img" data-group="skill" src="https://placehold.co/1200x900?text=Results" alt="Skill Arcade — Results" loading="lazy">
+                  <img class="gallery-img" data-group="skill" src="https://placehold.co/1200x900?text=Badges+%2F+Streaks" alt="Skill Arcade — Badges and streaks" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Screens:</strong> Topic catalog, 3‑min run, Results, Badge crafting, Streaks.</li>
+                  <li><strong>Components:</strong> Chips, difficulty selector, timer, progress bars, loot modal, streak freeze, push reminders.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Glyph+Garden+Cover" alt="Glyph Garden literacy quest cover">
+          </div>
+          <div class="details">
+            <h3>Glyph Garden — literacy quest game</h3>
+            <p>Warm‑pastel literacy quest with Library, Reading Run, Quiz Vault, Progress Tree, and Avatar.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p6-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p6-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="glyph" src="https://placehold.co/1200x900?text=Library" alt="Glyph Garden — Library" loading="lazy">
+                  <img class="gallery-img" data-group="glyph" src="https://placehold.co/1200x900?text=Reading+Run" alt="Glyph Garden — Reading Run" loading="lazy">
+                  <img class="gallery-img" data-group="glyph" src="https://placehold.co/1200x900?text=Progress+Tree" alt="Glyph Garden — Progress Tree" loading="lazy">
+                  <img class="gallery-img" data-group="glyph" src="https://placehold.co/1200x900?text=Avatar" alt="Glyph Garden — Avatar" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li>Badges and reward loops with confetti‑powered loot modals.</li>
+                  <li>Timers, progress bars, and difficulty chips for short sessions.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=Habit+Haven+Cover" alt="Habit Haven cozy habit RPG cover">
+          </div>
+          <div class="details">
+            <h3>Habit Haven — cozy habit‑building RPG</h3>
+            <p>A cozy RPG that turns daily routines into quests with timers, XP/streak bars, badges, and loot.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p7-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p7-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="habithaven" src="https://placehold.co/1200x900?text=Dashboard" alt="Habit Haven — Dashboard" loading="lazy">
+                  <img class="gallery-img" data-group="habithaven" src="https://placehold.co/1200x900?text=Habit+Forge" alt="Habit Haven — Habit Forge" loading="lazy">
+                  <img class="gallery-img" data-group="habithaven" src="https://placehold.co/1200x900?text=Streak+Arena" alt="Habit Haven — Streak Arena" loading="lazy">
+                  <img class="gallery-img" data-group="habithaven" src="https://placehold.co/1200x900?text=Rewards+Vault" alt="Habit Haven — Rewards Vault" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li><strong>Screens:</strong> Dashboard, Habit Forge, Streak Arena, Rewards Vault, Leaderboard, Profile Skins.</li>
+                  <li><strong>Components:</strong> Timers, XP/streak bars, loot modal, confetti.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="project">
+          <div class="media">
+            <img src="https://placehold.co/1600x1000/png?text=SaaS+Landing+Cover" alt="SaaS company landing cover">
+          </div>
+          <div class="details">
+            <h3>SaaS Landing Page — Company</h3>
+            <p>Conversion‑focused B2B landing with editorial hero, feature modules, metrics, and CTAs in a calm navy‑gold palette.</p>
+            <div class="meta">Year: [Year] • Tools: [Tools]</div>
+
+            <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p8-more">
+              <span class="label">Read details</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.185l3.71-3.955a.75.75 0 111.08 1.04l-4.24 4.52a.75.75 0 01-1.08 0l-4.24-4.52a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+
+            <div id="p8-more" class="expandable">
+              <div class="content">
+                <div class="gallery-grid">
+                  <img class="gallery-img" data-group="saas" src="https://placehold.co/1200x900?text=Hero" alt="SaaS — Hero section" loading="lazy">
+                  <img class="gallery-img" data-group="saas" src="https://placehold.co/1200x900?text=Features+Grid" alt="SaaS — Features grid" loading="lazy">
+                  <img class="gallery-img" data-group="saas" src="https://placehold.co/1200x900?text=Metrics" alt="SaaS — Metrics chart" loading="lazy">
+                  <img class="gallery-img" data-group="saas" src="https://placehold.co/1200x900?text=Testimonials" alt="SaaS — Testimonials" loading="lazy">
+                </div>
+                <ul class="bullet-list">
+                  <li>Modular sections: hero, features, solutions grid, metrics, testimonials, FAQs.</li>
+                  <li>Accessibility + responsive patterns with scalable tokens/components.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+      <div class="wrap">
+        <div class="portrait">
+          <img src="https://placehold.co/900x1125/png?text=Your+Portrait" alt="Portrait placeholder for Shinjini Chakraborty">
+        </div>
+        <div class="about">
+          <h2>Hi, I'm Shinjini.</h2>
+          <p>I'm a 20‑year‑old freelance graphic designer from India with 2+ years of design work. I blend creativity with technology—using AI and modern design tools—to craft playful, product‑ready visuals and interfaces.</p>
+          <p>Open to freelance collaborations and new projects.</p>
+          <div class="contact" style="margin-top:14px">
+            <a href="mailto:your@email.com">your@email.com</a>
+            <a href="#" target="_blank" rel="noopener">Instagram</a>
+            <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    © <span id="year"></span> Shinjini Chakraborty. All rights reserved.
+  </footer>
+
+  <script>
+  // Footer year
+  (function () {
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+
+  // Expand/collapse panels
+  (function () {
+    var singleOpen = false; // set true to allow only one open at a time
+    var buttons = document.querySelectorAll('.expand-btn');
+
+    function setExpanded(btn, yes) {
+      btn.setAttribute('aria-expanded', yes ? 'true' : 'false');
+      var label = btn.querySelector('.label');
+      var chev = btn.querySelector('svg');
+      if (label) label.textContent = yes ? 'Hide details' : 'Read details';
+      if (chev) chev.style.transform = yes ? 'rotate(180deg)' : '';
+    }
+
+    function expand(panel) {
+      panel.style.overflow = 'hidden';
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      var onEnd = function () {
+        panel.style.maxHeight = 'none'; // allow natural growth after animation
+        panel.removeEventListener('transitionend', onEnd);
+      };
+      panel.addEventListener('transitionend', onEnd);
+    }
+
+    function collapse(panel) {
+      if (getComputedStyle(panel).maxHeight === 'none') {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        void panel.offsetHeight; // reflow
+      }
+      panel.style.overflow = 'hidden';
+      panel.style.maxHeight = '0px';
+    }
+
+    buttons.forEach(function (btn) {
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!panel) return;
+
+      // Start collapsed with transition enabled
+      panel.style.transition = 'max-height .5s ease';
+      panel.style.overflow = 'hidden';
+      panel.style.maxHeight = '0px';
+      setExpanded(btn, false);
+
+      // If images load while open, keep height correct
+      panel.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('load', function () {
+          if (btn.getAttribute('aria-expanded') === 'true') {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            requestAnimationFrame(function () { panel.style.maxHeight = 'none'; });
+          }
+        });
+      });
+
+      btn.addEventListener('click', function () {
+        var isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        if (singleOpen && !isOpen) {
+          document.querySelectorAll('.expand-btn[aria-expanded="true"]').forEach(function (openBtn) {
+            if (openBtn === btn) return;
+            var openPanel = document.getElementById(openBtn.getAttribute('aria-controls'));
+            setExpanded(openBtn, false);
+            if (openPanel) collapse(openPanel);
+          });
+        }
+
+        if (isOpen) {
+          setExpanded(btn, false);
+          collapse(panel);
+        } else {
+          setExpanded(btn, true);
+          if (getComputedStyle(panel).maxHeight === 'none') {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            void panel.offsetHeight;
+          }
+          expand(panel);
+        }
+      });
+    });
+  })();
+
+  // Lightbox (standalone, no CSS framework required)
+  (function () {
+    function style(el, css) { for (var k in css) el.style[k] = css[k]; }
+
+    function ensureOverlay() {
+      var el = document.getElementById('lightbox');
+      if (el) return el;
+
+      el = document.createElement('div');
+      el.id = 'lightbox';
+      style(el, {
+        position: 'fixed', left: '0', top: '0', right: '0', bottom: '0',
+        background: 'rgba(0,0,0,.85)', display: 'none',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '16px', zIndex: '9999'
+      });
+
+      var btnClose = document.createElement('button');
+      btnClose.id = 'lb-close';
+      btnClose.textContent = 'Close ✕';
+      style(btnClose, {
+        position: 'absolute', top: '16px', right: '16px',
+        background: 'rgba(255,255,255,.1)', color: '#fff',
+        border: '0', padding: '6px 10px', borderRadius: '9999px', cursor: 'pointer'
+      });
+
+      var btnPrev = document.createElement('button');
+      btnPrev.id = 'lb-prev';
+      btnPrev.textContent = '‹';
+      style(btnPrev, {
+        position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
+        background: 'rgba(255,255,255,.1)', color: '#fff',
+        border: '0', padding: '6px 10px', borderRadius: '9999px', cursor: 'pointer'
+      });
+
+      var btnNext = document.createElement('button');
+      btnNext.id = 'lb-next';
+      btnNext.textContent = '›';
+      style(btnNext, {
+        position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)',
+        background: 'rgba(255,255,255,.1)', color: '#fff',
+        border: '0', padding: '6px 10px', borderRadius: '9999px', cursor: 'pointer'
+      });
+
+      var frame = document.createElement('div');
+      style(frame, { maxWidth: '92vw', maxHeight: '90vh' });
+
+      var img = document.createElement('img');
+      img.id = 'lb-img';
+      style(img, {
+        maxWidth: '100%', maxHeight: '82vh',
+        borderRadius: '12px', boxShadow: '0 20px 60px rgba(0,0,0,.5)',
+        objectFit: 'contain'
+      });
+
+      var cap = document.createElement('div');
+      cap.id = 'lb-cap';
+      style(cap, { marginTop: '12px', textAlign: 'center', color: 'rgba(255,255,255,.8)', fontSize: '14px' });
+
+      frame.appendChild(img);
+      frame.appendChild(cap);
+      el.appendChild(btnClose);
+      el.appendChild(btnPrev);
+      el.appendChild(btnNext);
+      el.appendChild(frame);
+      document.body.appendChild(el);
+      return el;
+    }
+
+    var overlay = ensureOverlay();
+    var lbImg = overlay.querySelector('#lb-img');
+    var lbCap = overlay.querySelector('#lb-cap');
+    var btnPrev = overlay.querySelector('#lb-prev');
+    var btnNext = overlay.querySelector('#lb-next');
+    var btnClose = overlay.querySelector('#lb-close');
+
+    var groupEls = [];
+    var idx = 0;
+
+    function srcFor(el) { return el.dataset.large || el.src; }
+
+    function preloadAround(i) {
+      if (!groupEls.length) return;
+      var next = new Image();
+      next.src = srcFor(groupEls[(i + 1) % groupEls.length]);
+      var prev = new Image();
+      prev.src = srcFor(groupEls[(i - 1 + groupEls.length) % groupEls.length]);
+    }
+
+    function show(i) {
+      if (!groupEls.length) return;
+      idx = (i + groupEls.length) % groupEls.length;
+      var el = groupEls[idx];
+      lbImg.src = srcFor(el);
+      lbImg.alt = el.alt || '';
+      lbCap.textContent = el.alt || '';
+      preloadAround(idx);
+    }
+
+    function openFor(el) {
+      var group = el.dataset.group || 'default';
+      groupEls = Array.prototype.slice.call(document.querySelectorAll('.gallery-img[data-group="' + group + '"]'));
+      if (!groupEls.length) return;
+      idx = groupEls.indexOf(el);
+      if (idx < 0) idx = 0;
+      show(idx);
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Delegate clicks
+    document.addEventListener('click', function (e) {
+      var img = e.target.closest && e.target.closest('.gallery-img');
+      if (img) {
+        e.preventDefault();
+        openFor(img);
+      }
+    });
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) close();
+    });
+    btnClose.addEventListener('click', close);
+    btnPrev.addEventListener('click', function () { show(idx - 1); });
+    btnNext.addEventListener('click', function () { show(idx + 1); });
+
+    document.addEventListener('keydown', function (e) {
+      if (overlay.style.display === 'none') return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') show(idx + 1);
+      if (e.key === 'ArrowLeft') show(idx - 1);
+    });
+  })();
+</script>
+</body>
+</html>
