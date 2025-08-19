@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shinjini Chakraborty • Portfolio</title>
   <meta name="description" content="Portfolio of Shinjini Chakraborty">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -115,15 +116,23 @@
 </head>
 <body>
   <!-- NAV -->
-  <header class="nav">
-    <div class="container row">
-      <a class="brand" href="#">Shinjini Chakraborty</a>
-      <ul class="menu" role="navigation" aria-label="Main">
-        <li><a href="#work">WORK</a></li>
-        <li><a href="#about">ABOUT ME</a></li>
-      </ul>
-    </div>
-  </header>
+<header class="nav py-4">
+  <div class="container flex justify-between items-center">
+  <a 
+  href="#"
+  class="brand text-3xl font-bold [font-family:'Playfair_Display',serif] bg-gradient-to-r from-[#4e2d16] via-[#b6863b] via-[#d4af37] via-[#4e2d16] to-[#d4af37] bg-clip-text text-transparent"
+>
+  Shinjini Chakraborty
+</a>
+
+
+    <ul class="menu flex space-x-6" role="navigation" aria-label="Main">
+      <li><a class="hover:text-gray-600" href="#work">WORK</a></li>
+      <li><a class="hover:text-gray-600" href="#about">ABOUT ME</a></li>
+    </ul>
+  </div>
+</header>
+
 
   <main>
     <section id="work" class="container">
@@ -379,17 +388,22 @@
     <section id="about" class="container">
       <div class="wrap">
         <div class="portrait">
-          <img src="https://placehold.co/900x1125/png?text=Your+Portrait" alt="Portrait placeholder for Shinjini Chakraborty">
+          <img src="images/about.jpeg" alt="Portrait placeholder for Shinjini Chakraborty">
         </div>
         <div class="about">
           <h2>Hi, I'm Shinjini.</h2>
-          <p>I'm a 20‑year‑old freelance graphic designer from India with 2+ years of design work. I blend creativity with technology—using AI and modern design tools—to craft playful, product‑ready visuals and interfaces.</p>
-          <p>Open to freelance collaborations and new projects.</p>
-          <div class="contact" style="margin-top:14px">
-            <a href="mailto:shinjinic05@gmail.com">Email</a>
-            <!-- <a href="#" target="_blank" rel="noopener">Instagram</a> -->
-            <!-- <a href="" target="_blank" rel="noopener">GitHub</a> -->
+          <p>I'm a 20‑year‑old freelance graphic designer from India with 2+ years of design work. 
+            I blend creativity with technology, using AI and modern design tools, to craft playful, 
+            product‑ready visuals and interfaces 
+            with a sprinkle of curiosity and a dash of whimsy to keep the digital world a little more delightful.
+            </p>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <p style="margin: 0;">Open to freelance collaborations and new projects.</p>
+            <div class="contact">
+              <a href="mailto:shinjinic05@gmail.com">Email</a>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
