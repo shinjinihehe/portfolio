@@ -192,6 +192,61 @@
         align-items: center;
       }
     }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 200% 50%;
+      }
+    }
+
+    .accent-text {
+      font-weight: 700; /* bold */
+      background: linear-gradient(90deg, #ca8a04, #fbbf24, #ca8a04); /* gold gradient */
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 4s linear infinite;
+    }
+
+  
+.intro {
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  margin: 2.5rem 0;
+}
+
+.intro p {
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
+.intro .accent-text {
+  background: linear-gradient(90deg, #c9a773, #9d7747 60%, #d7b98b);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.intro::before,
+.intro::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: #e5e7eb;
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
   </style>
 </head>
 <body>
@@ -210,6 +265,14 @@
 
   <main>
     <section id="work" class="container">
+      <div class="intro text-2xl">
+    <p>
+      Plot twist: I make things 
+      <span class="accent-text">look pretty</span>. 
+      Wanna see?
+    </p>
+      </div>
+      
       <div class="projects">
         <!-- 1 -->
         <article class="project">
@@ -386,7 +449,7 @@
           </div>
         </article>
 
-        <!-- Mental Wellness App -->
+        <!-- 6 -->
 <article class="project">
   <div class="media">
     <img src="images/wellness-app1.png" >
@@ -394,7 +457,7 @@
   <div class="details">
     <h3>Mental Wellness Hub</h3>
     <p>Supportive mental health app with mood tracking, meditation sessions, peer support groups, and calming audio experiences.</p>
-    <div class="meta">Year: 2024 • Tools: Figma</div>
+    <div class="meta">Year: 2025 • Tools: Figma</div>
 
     <button type="button" class="expand-btn" aria-expanded="false" aria-controls="wellness-more">
       <span class="label">Read details</span>
@@ -419,7 +482,7 @@
 </article>
         
 
-        <!-- 6 -->
+        <!-- 7 -->
         <article class="project">
           <div class="media">
             <img src="images/habithaven1.png" >
@@ -427,7 +490,7 @@
           <div class="details">
             <h3>HabitHaven</h3>
             <p>A cozy RPG that turns daily routines into quests with timers, XP/streak bars, badges, and loot.</p>
-            <div class="meta">Year: 2023 • Tools: [Figma, Inkscape</div>
+            <div class="meta">Year: 2024 • Tools: [Figma, Inkscape</div>
 
             <button type="button" class="expand-btn" aria-expanded="false" aria-controls="p7-more">
               <span class="label">Read details</span>
@@ -457,7 +520,7 @@
       
 
 
-<!-- Travel Explorer App -->
+<!-- 8 -->
 <article class="project">
   <div class="media">
     <img src="images/travel-explorer1.png" >
@@ -490,7 +553,7 @@
 </article>
 
 
-<!-- Investment Portfolio App -->
+<!-- 9 -->
 <article class="project">
   <div class="media">
     <img src="images/investment-app1.png" >
@@ -498,7 +561,7 @@
   <div class="details">
     <h3>Portfolio Tracker</h3>
     <p>Dark-themed investment app with data visualization, transaction history, and portfolio breakdown. Clean financial dashboard design.</p>
-    <div class="meta">Year: 2024 • Tools: Figma</div>
+    <div class="meta">Year: 2023 • Tools: Figma</div>
 
     <button type="button" class="expand-btn" aria-expanded="false" aria-controls="investment-more">
       <span class="label">Read details</span>
@@ -522,7 +585,7 @@
   </div>
 </article>
 
-<!-- 7 -->
+<!-- 10 -->
         <article class="project">
           <div class="media">
             <img src="images/saas1.png" >
